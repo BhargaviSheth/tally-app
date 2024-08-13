@@ -51,7 +51,7 @@ export default function MetajiConnector() {
       </div>
 
 
-        <footer className="mt-6 text-xs text-gray-400">
+        <footer className="text-xs text-gray-400 bg-slate-50">
           MetaJi.in | Version 1.0
         </footer>
       </div>
