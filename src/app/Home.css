@@ -1,0 +1,135 @@
+/* Home.module.css */
+
+.container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 800px;
+  margin: 20px auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.backButton {
+  margin-right: 10px;
+  background: none;
+  border: none;
+}
+
+.tabs {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.tab, .activeTab {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: 20px;
+  background: none;
+  border: 1px solid transparent;
+}
+
+.activeTab {
+  background: #e0e0e0;
+  border-color: #ccc;
+}
+
+.syncButton {
+  margin-right: 20px;
+  padding: 5px 15px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+
+.statusIndicators {
+  display: flex;
+  margin-right: 20px;
+}
+
+.connected {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  background: #e0ffe0;
+  border: 1px solid #b2f5b2;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.userDropdown {
+  position: relative;
+}
+
+.userButton {
+  background: #ddd;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+.dropdownContent {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+}
+
+.userDropdown:hover .dropdownContent {
+  display: block;
+}
+
+.userInfo {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdownItem {
+  padding: 10px;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.main {
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  color: #f00;
+}
+
+.footer {
+  padding: 10px 20px;
+  background: #f5f5f5;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}

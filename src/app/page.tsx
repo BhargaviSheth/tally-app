@@ -13,9 +13,9 @@ import tallyLogo from './asset/tallyLogo.png'
 export default function MetajiConnector() {
 
 
-  const handleSignIn = async () => {
-    const firebaseUser = await signInWithGoogle();
-    const userIdToken = await firebaseUser?.user.getIdToken();
+  // const handleSignIn = async () => {
+  //   const firebaseUser = await signInWithGoogle();
+  //   const userIdToken = await firebaseUser?.user.getIdToken();
     
   return (
     <div className="flex justify-center items-center h-screen bg-gray">
@@ -66,4 +66,4 @@ export default function MetajiConnector() {
     </div>
   );
 }
-}
+// }
