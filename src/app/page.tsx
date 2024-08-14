@@ -4,11 +4,19 @@ import React from 'react';
 import Head from 'next/head';
 import SVGIcon, { SVGList } from "./asset/icons";
 import { Button } from './components/button';
+import { signInWithGoogle } from "./lib/firebase/auth";
+
 import tallyLogo from './asset/tallyLogo.png'
 
 
 
 export default function MetajiConnector() {
+
+
+  const handleSignIn = async () => {
+    const firebaseUser = await signInWithGoogle();
+    const userIdToken = await firebaseUser?.user.getIdToken();
+    
   return (
     <div className="flex justify-center items-center h-screen bg-gray">
       <Head>
@@ -36,7 +44,7 @@ export default function MetajiConnector() {
         <Button
         variant={"outline"}
         className="max-w-[100%]  rounded-[8px] gap-2 my-8 py-6"
-        // onClick={() => handleSignIn()}
+      //  onClick={() => handleSignIn()}
       >
        
           <SVGIcon name={SVGList.google} height={"24px"} width={"24px"} />
@@ -57,4 +65,5 @@ export default function MetajiConnector() {
       </div>
     </div>
   );
+}
 }
