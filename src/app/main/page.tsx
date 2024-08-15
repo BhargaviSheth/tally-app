@@ -2,10 +2,19 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useUserStore } from '../store/userDetails';
+
 
 export default function Home() {
+  console.log(useUserStore.name)
+  
+  const { userDetails } = useUserStore();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  if (!userDetails) {
+    return <p>Loading...</p>;
+  }
+console.log(userDetails.user.email)
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-5xl mx-auto mt-8">
       <header className="flex items-center p-4 bg-gray-100 border-b border-gray-300">
@@ -31,13 +40,13 @@ export default function Home() {
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className="bg-gray-300 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center"
           >
-            J
+            B
           </button>
           {dropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="px-4 py-2 border-b border-gray-200">
-                <strong>Jaydeep</strong>
-                <p className="text-sm text-gray-500">Metaji@gmail.com</p>
+                <strong>{userDetails.user.displayName}</strong>
+                <p className="text-sm text-gray-500">{userDetails.user.email}</p>
               </div>
               <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Account</button>
               <button className="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100">Logout</button>
