@@ -3,6 +3,8 @@
 
 import React, { useState } from 'react';
 import { useUserStore } from '../store/userDetails';
+import SVGIcon, { SVGList } from "../asset/icons";
+
 
 
 export default function Home() {
@@ -21,6 +23,9 @@ console.log(userDetails.user.email)
         <button className="mr-4 p-2 text-gray-600">
           <i className="icon-back"></i>
         </button>
+        <div className='border rounded-lg p-2'>
+            <SVGIcon name={SVGList.attach} width={"20px"} height={"20px"} />
+          </div>
         <h1 className="text-xl font-semibold flex-grow">MetaJi Tally Connector</h1>
         <div className="flex items-center space-x-2">
           <button className="py-2 px-4 rounded-full bg-gray-200 text-gray-600">Tally data</button>
