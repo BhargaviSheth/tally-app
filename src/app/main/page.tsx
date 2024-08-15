@@ -1,22 +1,25 @@
-// pages/index.js
 "use client";
 
 import React, { useState } from 'react';
 import { useUserStore } from '../store/userDetails';
+import { Switch } from '../components/switch'; 
 import SVGIcon, { SVGList } from "../asset/icons";
-
+import { cn } from "../lib/utils"
 
 
 export default function Home() {
-  console.log(useUserStore.name)
-  
   const { userDetails } = useUserStore();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [tallyDataOn, setTallyDataOn] = useState(false);
+  const [exportRequestsOn, setExportRequestsOn] = useState(false);
 
   if (!userDetails) {
     return <p>Loading...</p>;
   }
-console.log(userDetails.user.email)
+
+  const handleTallyDataToggle = () => setTallyDataOn(prev => !prev);
+  const handleExportRequestsToggle = () => setExportRequestsOn(prev => !prev);
+
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-5xl mx-auto mt-8">
       <header className="flex items-center p-4 bg-gray-100 border-b border-gray-300">
@@ -24,12 +27,22 @@ console.log(userDetails.user.email)
           <i className="icon-back"></i>
         </button>
         <div className='border rounded-lg p-2'>
-            <SVGIcon name={SVGList.attach} width={"20px"} height={"20px"} />
-          </div>
+          {/* Adjust this SVGIcon as needed */}
+          <SVGIcon name={SVGList.attach} width={"20px"} height={"20px"} />
+        </div>
         <h1 className="text-xl font-semibold flex-grow">MetaJi Tally Connector</h1>
-        <div className="flex items-center space-x-2">
-          <button className="py-2 px-4 rounded-full bg-gray-200 text-gray-600">Tally data</button>
-          <button className="py-2 px-4 rounded-full text-gray-600">Export requests</button>
+        <div className="flex items-center space-x-4">
+          <Switch
+            checked={tallyDataOn}
+            onCheckedChange={handleTallyDataToggle}
+            
+          />Tally data
+          {/* <span className="ml-2 text-gray-600">Tally data</span> */}
+          <Switch
+            checked={exportRequestsOn}
+            onCheckedChange={handleExportRequestsToggle}
+          />Export requests
+          {/* <span className="ml-2 text-gray-600">Export requests</span> */}
         </div>
         <button className="ml-4 py-2 px-4 bg-gray-200 rounded-full text-gray-600">Sync</button>
         <div className="flex items-center ml-4 space-x-4">
