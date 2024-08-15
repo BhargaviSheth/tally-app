@@ -1,28 +1,17 @@
-import { getApps, initializeApp } from "firebase/app";
+// lib/firebase.js (or config.js if you're using that name)
+import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBfv1oGt7LMZnj-vbc8kaygOO9nYGQD7Ec",
-  authDomain: "metaji-auth01.firebaseapp.com",
-  projectId: "metaji-auth01",
-  storageBucket: "metaji-auth01.appspot.com",
-  messagingSenderId: "689182450363",
-  appId: "1:689182450363:web:5b31a32016e1e64ad37f9e",
-  measurementId: "G-2LDF4F7VS1",
+  apiKey: "AIzaSyCX74tB_bYU6wbBNqVuE_28156A6OyBftc",
+  authDomain: "tally-app-87e7d.firebaseapp.com",
+  projectId: "tally-app-87e7d",
+  storageBucket: "tally-app-87e7d.appspot.com",
+  messagingSenderId: "299719477757",
+  appId: "1:299719477757:web:46d6b72b7ef1600e7f3194",
 };
 
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
-const auth = getAuth();
+const app = initializeApp(firebaseConfig);
+const firebaseAuth = getAuth(app);
 
-export { auth };
-
-const firebaseApp =
-  getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-
-export const firebaseAuth = getAuth(firebaseApp);
+export { firebaseAuth };

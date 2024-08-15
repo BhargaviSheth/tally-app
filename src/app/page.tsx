@@ -1,10 +1,17 @@
 // pages/index.js
+"use client";  
+
 
 import React from 'react';
 import Head from 'next/head';
 import SVGIcon, { SVGList } from "./asset/icons";
 import { Button } from './components/button';
 import { signInWithGoogle } from "./lib/firebase/auth";
+// import { useGetToken } from "./lib/api/quires/authQueries";
+import { useUserStore } from "./store/userDetails";
+//import { createSession } from "/actions/authActions";
+
+
 
 import tallyLogo from './asset/tallyLogo.png'
 
@@ -12,10 +19,24 @@ import tallyLogo from './asset/tallyLogo.png'
 
 export default function MetajiConnector() {
 
+ // const { mutateAsync, status } = useGetToken();
+  const { updateUser } = useUserStore();
 
-  // const handleSignIn = async () => {
-  //   const firebaseUser = await signInWithGoogle();
-  //   const userIdToken = await firebaseUser?.user.getIdToken();
+
+
+  const handleSignIn = async () => {
+    try {
+      const firebaseUser = await signInWithGoogle();
+      const userIdToken = await firebaseUser?.user.getIdToken();
+
+      
+      console.log("User ID Token:", userIdToken);
+      
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+      
+    }
+  };
     
   return (
     <div className="flex justify-center items-center h-screen bg-gray">
@@ -44,7 +65,7 @@ export default function MetajiConnector() {
         <Button
         variant={"outline"}
         className="max-w-[100%]  rounded-[8px] gap-2 my-8 py-6"
-      //  onClick={() => handleSignIn()}
+        onClick={() => handleSignIn()}
       >
        
           <SVGIcon name={SVGList.google} height={"24px"} width={"24px"} />
@@ -66,4 +87,4 @@ export default function MetajiConnector() {
     </div>
   );
 }
-// }
+
