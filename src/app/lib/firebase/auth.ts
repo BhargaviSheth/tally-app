@@ -14,7 +14,7 @@ export function onAuthStateChanged(callback: (authUser: User | null) => void) {
 
 export async function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
-
+console.log({firebaseAuth})
   try {
     const result = await signInWithPopup(firebaseAuth, provider);
 
