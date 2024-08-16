@@ -1,20 +1,57 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useUserStore } from '../store/userDetails';
+import Head from 'next/head';
+import SVGIcon, { SVGList } from "../asset/icons";
 
 export default function MetaJiTallyConnector() {
-  const [email, setEmail] = useState('jaydeepdedaniya@gmail.com');
+  const { userDetails } = useUserStore();
+  
   const [tallyServer, setTallyServer] = useState('localhost:9999');
   const [isSaved, setIsSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (userDetails) {
+      setLoading(false);
+    }
+  }, [userDetails]);
+
+  // Handle early return if data is not ready
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!userDetails) {
+    return <div>No user details available</div>;
+  }
+
+  const user = userDetails["user"];
+  console.log(user);
 
   const handleSave = () => {
-    console.log('Email:', email);
+    console.log('Email:', user.email);
     console.log('Tally Gateway Server:', tallyServer);
     setIsSaved(true);
   };
 
   return (
+    <div className='flex justify-center items-center h-screen bg-gray '>
+      
     <div className="max-w-md mx-auto bg-white shadow-md rounded-lg p-6">
-      <h1 className="text-xl font-semibold mb-4">MetaJi Tally Connector</h1>
+
+     <Head>
+        <title>MetaJi Tally Connector</title>
+      </Head>
+      <div className="flex flex-col justify-between bg-white rounded-lg shadow-md text-center w-full h-auto">
+        <div className="p-2 flex gap-x-2 items-center border-b">
+          <div className='border rounded-lg p-2'>
+            <SVGIcon name={SVGList.attach} width={"20px"} height={"20px"} />
+          </div>
+          <h1 className="text-xl font-bold">MetaJi Tally Connector</h1>
+        </div>
+        </div>
+      {/* <h1 className="text-xl font-semibold mb-4">MetaJi Tally Connector</h1> */}
       <div className="flex justify-between items-center mb-4">
         <button className="text-purple-600">Telly data</button>
         <button className="text-purple-600">Export requests</button>
@@ -31,8 +68,8 @@ export default function MetaJiTallyConnector() {
         <input
           type="email"
           className="w-full border border-gray-300 p-2 rounded-lg mb-4"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={user.email}
+        //  onChange={(e) => setEmail(user.email)}
         />
         <input
           type="text"
@@ -45,7 +82,6 @@ export default function MetaJiTallyConnector() {
         <button
           className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg"
           onClick={() => {
-            setEmail('jaydeepdedaniya@gmail.com');
             setTallyServer('localhost:9999');
           }}
         >
@@ -64,6 +100,7 @@ export default function MetaJiTallyConnector() {
       <footer className="mt-6 text-center text-gray-500 text-sm">
         MetaJi.in | Version 1.0
       </footer>
+    </div>
     </div>
   );
 }
