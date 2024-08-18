@@ -1,10 +1,11 @@
-"use client"
-import { useState, useEffect } from 'react';
-import { useUserStore } from '../store/userDetails';
-import Head from 'next/head';
-import SVGIcon, { SVGList } from "../asset/icons";
+"use client" 
+import { useState, useEffect } from 'react'; 
+import { useUserStore } from '../store/userDetails'; 
+import Head from 'next/head';  
+import SVGIcon, { SVGList } from "../asset/icons"; 
 
 export default function MetaJiTallyConnector() {
+  
   const { userDetails } = useUserStore();
   
   const [tallyServer, setTallyServer] = useState('localhost:9999');
@@ -97,7 +98,7 @@ export default function MetaJiTallyConnector() {
           Save
         </button>
       </div>
-      <footer className="mt-6 text-center text-gray-500 text-sm">
+      <footer className="mt-5 text-center text-gray-600 bg-slate-100 text-sm p-3">
         MetaJi.in | Version 1.0
       </footer>
     </div>

@@ -27,7 +27,7 @@ export default function Home() {
           <i className="icon-back"></i>
         </button>
         <div className='border rounded-lg p-2'>
-          {/* Adjust this SVGIcon as needed */}
+          
           <SVGIcon name={SVGList.attach} width={"20px"} height={"20px"} />
         </div>
         <h1 className="text-xl font-semibold flex-grow">MetaJi Tally Connector</h1>
@@ -36,12 +36,14 @@ export default function Home() {
             checked={tallyDataOn}
             onCheckedChange={handleTallyDataToggle}
             
-          />Tally data
+          />
           {/* <span className="ml-2 text-gray-600">Tally data</span> */}
           <Switch
             checked={exportRequestsOn}
             onCheckedChange={handleExportRequestsToggle}
-          />Export requests
+          />
+
+          
           {/* <span className="ml-2 text-gray-600">Export requests</span> */}
         </div>
         <button className="ml-4 py-2 px-4 bg-gray-200 rounded-full text-gray-600">Sync</button>
