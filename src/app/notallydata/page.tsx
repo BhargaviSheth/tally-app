@@ -15,7 +15,7 @@ const Home = () => {
 
         <div className="text-gray-800 text-lg font-medium">MetaJi Tally Connector</div>
         <div className="flex items-center">
-          <span className="mr-3 px-3 py-1 bg-gray-200 text-gray-700 rounded">
+          <span className="flex items-center px-3 py-1 bg-gray-200 text-gray-700 rounded">
           <Image src = {change} alt ="syncing" className="w-5 h-5"/>
 
             Sync</span>
