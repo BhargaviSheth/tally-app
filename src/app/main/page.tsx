@@ -31,22 +31,13 @@ export default function Home() {
           <SVGIcon name={SVGList.attach} width={"20px"} height={"20px"} />
         </div>
         <h1 className="text-xl font-semibold flex-grow">MetaJi Tally Connector</h1>
-        <div className="flex items-center space-x-4">
-          <Switch
-            checked={tallyDataOn}
-            onCheckedChange={handleTallyDataToggle}
-            
-          />
-          {/* <span className="ml-2 text-gray-600">Tally data</span> */}
-          <Switch
-            checked={exportRequestsOn}
-            onCheckedChange={handleExportRequestsToggle}
-          />
+          <span className="ml-2 text-gray-600">Tally data</span>
+          <span className="ml-2 text-gray-600">Export  data</span>
 
+        <span className="ml-4 py-2 px-4 bg-gray-200 rounded-full text-gray-600">
+          Sync
           
-          {/* <span className="ml-2 text-gray-600">Export requests</span> */}
-        </div>
-        <button className="ml-4 py-2 px-4 bg-gray-200 rounded-full text-gray-600">Sync</button>
+          </span>
         <div className="flex items-center ml-4 space-x-4">
           <div className="flex items-center px-4 py-2 bg-green-100 border border-green-200 rounded-full text-green-600">
             <i className="icon-wifi mr-2"></i> Connected

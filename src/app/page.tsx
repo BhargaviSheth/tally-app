@@ -1,56 +1,60 @@
-// pages/index.js
-"use client";  
+"use client";
 
-import React, { useState } from 'react';
-import Head from 'next/head';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { auth, provider } from './lib/firebase/config';
+import { getRedirectResult, onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
+import Image from 'next/image';
+import { useUserStore } from "./store/userDetails";
 import SVGIcon, { SVGList } from "./asset/icons";
 import { Button } from './components/button';
-import { signInWithGoogle } from "./lib/firebase/auth";
-import { useUserStore } from "./store/userDetails";
 import tallyLogo from './asset/tallyLogo.png';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Head from 'next/head';
 
 
 export default function MetajiConnector() {
   const { updateUser } = useUserStore();
-  const router = useRouter(); // Initialize router
+  const router = useRouter(); 
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSignIn = async () => {
-    setIsLoading(true);
-    setErrorMessage("");
-
-    try {
-      const firebaseUser = await signInWithGoogle();
-      const userIdToken = await firebaseUser?.user.getIdToken();
-
-      if (userIdToken && firebaseUser?.user.uid) {
-        await fetch('/api/auth', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${userIdToken}`
-          },
-          body: JSON.stringify({ uid: firebaseUser.user.uid })
-        });
-        router.push('/main'); 
-
-        // Update user store with Firebase user data
-        updateUser(firebaseUser);
-        console.log("User ID Token:", userIdToken);
+  useEffect(() => {
+    const checkRedirect = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result && result.user) {
+         // updateUser(result.user);
+          router.push('/main'); // Ensure this path exists
+        }
+      } catch (error) {
+        console.error("Error handling redirect result", error);
       }
+    };
 
+    checkRedirect();
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+       // updateUser(user);
+        router.push('/main'); // Ensure this path exists
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
+  const handleGoogleLogin = async () => {
+    try {
+      setIsLoading(true);
+      await signInWithRedirect(auth, provider);
     } catch (error) {
-      console.error("Error during Google sign-in:", error);
+      console.error("Error during Google sign-in", error);
       setErrorMessage("Failed to sign in. Please try again.");
-    } finally {
       setIsLoading(false);
     }
   };
-    
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray">
       <Head>
@@ -75,7 +79,7 @@ export default function MetajiConnector() {
           <Button
             variant={"outline"}
             className="max-w-[100%] rounded-[8px] gap-2 my-8 py-6"
-            onClick={handleSignIn}
+            onClick={handleGoogleLogin}
             disabled={isLoading}
           >
             {isLoading ? (

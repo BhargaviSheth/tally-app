@@ -4,6 +4,12 @@ import { useState, useEffect } from "react";
 import { useUserStore } from "../store/userDetails";
 import Head from "next/head";
 import SVGIcon, { SVGList } from "../asset/icons";
+import Nodata from "../asset/Nodata.png"
+import Image from 'next/image';
+import change from "../asset/Change.png"
+import wifi from "../asset/Wifi.png"
+import tally from "../asset/tally.png"
+//import SVGIcon, { SVGList } from "../asset/icons";
 
 export default function MetaJiTallyConnector() {
   const { userDetails } = useUserStore();
