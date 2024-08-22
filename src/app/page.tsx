@@ -56,14 +56,14 @@ export default function MetajiConnector() {
   };
 
 
-  const handleGoogleLogin = async () => {
-    try {
-      await signInWithRedirect(auth, provider);
-      router.push('./main')
-    } catch (error) {
-      console.error("Error during Google sign-in", error);
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     await signInWithRedirect(auth, provider);
+  //     router.push('./main')
+  //   } catch (error) {
+  //     console.error("Error during Google sign-in", error);
+  //   }
+  // };
 
   //code of popup login
   const handleSignIn = async () => {

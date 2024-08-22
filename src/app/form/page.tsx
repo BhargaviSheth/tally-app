@@ -111,7 +111,7 @@ export default function MetaJiTallyConnector() {
             <input
               type="email"
               className="w-full outline-none ml-2"
-              value={user.email}
+              value={user.email || ''}
               readOnly
               disabled
             />
