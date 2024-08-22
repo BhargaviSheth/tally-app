@@ -77,7 +77,7 @@ const Home = () => {
           className="w-20 h-20 mb-4"
         />
         <h2 className="text-2xl font-medium">Connect to the Internet</h2>
-        <p className="text-gray-500">`&rsquo;`You're offline. Check your connection.`&rsquo;`</p>
+        <p className="text-gray-500">You&apos;re offline. Check your connection.</p>
         <button className="mt-4 px-4 py-2 bg-purple-600 text-white rounded">
           Reconnect
         </button>
