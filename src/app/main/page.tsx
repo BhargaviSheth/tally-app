@@ -28,6 +28,7 @@ export default function Home() {
         </button>
         <div className='border rounded-lg p-2'>
           
+          
           <SVGIcon name={SVGList.attach} width={"20px"} height={"20px"} />
         </div>
         <h1 className="text-xl font-semibold flex-grow">MetaJi Tally Connector</h1>

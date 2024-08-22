@@ -1,15 +1,22 @@
-"use client";
+// pages/index.js
+"use client";  
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { auth, provider } from './lib/firebase/config';
-import { getRedirectResult, onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
-import Image from 'next/image';
-import { useUserStore } from "./store/userDetails";
+import React, { useState } from 'react';
+import Head from 'next/head';
 import SVGIcon, { SVGList } from "./asset/icons";
 import { Button } from './components/button';
+import { signInWithGoogle } from "./lib/firebase/auth";
+import { useUserStore } from "./store/userDetails";
 import tallyLogo from './asset/tallyLogo.png';
-import Head from 'next/head';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+//import { useRouter } from 'next/router';
+//import { auth, provider } from './lib/firebase/config';
+// import { auth } from './lib/firebase/config'; // Adjust the import path accordingly
+//import { GoogleAuthProvider, getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import { getRedirectResult, onAuthStateChanged ,signInWithRedirect} from 'firebase/auth';
+
 
 
 export default function MetajiConnector() {
@@ -19,42 +26,78 @@ export default function MetajiConnector() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    const checkRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result && result.user) {
-         // updateUser(result.user);
-          router.push('/main'); // Ensure this path exists
-        }
-      } catch (error) {
-        console.error("Error handling redirect result", error);
-      }
-    };
+  // useEffect(() => {
+  //   const checkRedirect = async () => {
+  //     try {
+  //       const result = await getRedirectResult(auth);
+  //       if (result && result.user) {
+  //         router.push('/main');
+  //       }
+  //     } catch (error) {
+  //       console.error("Error handling redirect result", error);
+  //     }
+  //   };
 
-    checkRedirect();
+  //   checkRedirect();
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-       // updateUser(user);
-        router.push('/main'); // Ensure this path exists
-      }
-    });
+  //   // Optional: handle user state changes
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       // User is signed in, redirect to /main
+  //       // router.push('/main');
+  //     }
+  //   });
 
-    return () => unsubscribe();
-  }, [router]);
+  //   return () => unsubscribe();
+  // }, [router]);
+
+  const handleTestRedirect = () => {
+    router.push('/main');
+  };
+
 
   const handleGoogleLogin = async () => {
     try {
-      setIsLoading(true);
       await signInWithRedirect(auth, provider);
+      router.push('./main')
     } catch (error) {
       console.error("Error during Google sign-in", error);
-      setErrorMessage("Failed to sign in. Please try again.");
-      setIsLoading(false);
     }
   };
 
+  //code of popup login
+  const handleSignIn = async () => {
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const firebaseUser = await signInWithGoogle();
+      const userIdToken = await firebaseUser?.user.getIdToken();
+
+      if (userIdToken && firebaseUser?.user.uid) {
+        await fetch('/api/auth', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userIdToken}`
+          },
+          body: JSON.stringify({ uid: firebaseUser.user.uid })
+        });
+        router.push('/main'); 
+
+        // Update user store with Firebase user data
+        updateUser(firebaseUser);
+        console.log("User ID Token:", userIdToken);
+      }
+
+    } catch (error) {
+      console.error("Error during Google sign-in:", error);
+      setErrorMessage("Failed to sign in. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+    
   return (
     <div className="flex justify-center items-center h-screen bg-gray">
       <Head>
@@ -79,7 +122,7 @@ export default function MetajiConnector() {
           <Button
             variant={"outline"}
             className="max-w-[100%] rounded-[8px] gap-2 my-8 py-6"
-            onClick={handleGoogleLogin}
+            onClick={handleTestRedirect}
             disabled={isLoading}
           >
             {isLoading ? (

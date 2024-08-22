@@ -10,6 +10,7 @@ import change from "../asset/Change.png"
 import wifi from "../asset/Wifi.png"
 import tally from "../asset/tally.png"
 //import SVGIcon, { SVGList } from "../asset/icons";
+import { Switch } from "../components/switch";
 
 export default function MetaJiTallyConnector() {
   const { userDetails } = useUserStore();
@@ -57,27 +58,67 @@ export default function MetaJiTallyConnector() {
           </div>
         </div>
 
-        <div className="flex justify-between items-center mt-4 mb-6">
+        <div className='flex items-center justify-end mr-5'>
+
+          {/* <div className='mr-auto'>
+            <Switch/>
+
+          </div> */}
+          
+          <div className='flex justify-between items-center px-4 py-3 bg-white border-b border-gray-200 space-x-2'>
+          <span className="flex items-center px-3 py-1 bg-gray-200 text-gray-700 rounded">
+          <Image src = {change} alt ="syncing" className="w-5 h-5"/>
+           Sync</span>
+
+           <span className="flex items-center px-3 py-1 bg-green-100 text-green-600 rounded">
+            <Image src = {wifi} alt ="syncing" className="w-5 h-5 "/>
+              Connected
+            </span>
+
+            <span className="flex items-center px-3 py-1 bg-green-100 text-green-600 rounded">
+            <Image src = {tally} alt ="syncing" className="w-5 h-5"/>
+              Connected
+            </span>
+            </div>
+
+            <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 font-bold">
+            B
+          </div>
+          </div>
+
+        {/* <div className="flex justify-between items-center mt-4 mb-6">
           <button className="text-purple-600">Telly data</button>
           <button className="text-purple-600">Export requests</button>
           <button className="bg-purple-600 text-white px-4 py-1 rounded-lg">Sync</button>
-        </div>
+        </div> */}
 
-        <div className="flex items-center justify-between mb-4">
+        {/* <div className="flex items-center justify-between mb-4">
           <span className="text-red-600">Not Connected</span>
           <span className="text-red-600">Tally Not Connected</span>
-          <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">J</div>
-        </div>
+          <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">B</div>
+        </div> */}
 
         <div className="mb-4">
           <h2 className="text-lg font-semibold mb-2">Account</h2>
           <p className="text-gray-600 mb-2">Manage your profile and preferences here.</p>
-          <input disabled
-            type="email"
-            className="w-full border border-gray-300 p-3 rounded-lg mb-4"
-            value={user.email}
-            readOnly
-          />
+          <hr></hr>
+          <p className="text-400 font-semibold mb-2 mt-8">Email</p>
+
+          
+          <div className="flex items-center border border-gray-300 rounded-lg mb-4 p-3 ">
+
+            <SVGIcon name={SVGList.email} width={"20px"} height={"20px"} className="ml-4" />
+            <input
+              type="email"
+              className="w-full outline-none ml-2"
+              value={user.email}
+              readOnly
+              disabled
+            />
+          </div>
+          
+
+          <p className="text-400 font-semibold mb-2">Tally Gateway Server</p>
           <input
             type="text"
             className="w-full border border-gray-300 p-3 rounded-lg"

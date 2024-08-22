@@ -14,16 +14,16 @@ const firebaseConfig = {
   appId: "1:299719477757:web:46d6b72b7ef1600e7f3194",
 };
 
-// const app = initializeApp(firebaseConfig);
-// const firebaseAuth = getAuth(app);
+const app = initializeApp(firebaseConfig);
+const firebaseAuth = getAuth(app);
 
 
-// export { firebaseAuth };
+export { firebaseAuth };
 
 //code of signinwith redirect
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider();
+// const app = initializeApp(firebaseConfig);
+// export const auth = getAuth(app);
+// export const provider = new GoogleAuthProvider();
 
 // let app;
 
