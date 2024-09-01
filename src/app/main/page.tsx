@@ -13,10 +13,13 @@ export default function Home() {
   const [tallyDataOn, setTallyDataOn] = useState(false);
   const [exportRequestsOn, setExportRequestsOn] = useState(false);
 
-  if (!userDetails) {
-    return <p>Loading...</p>;
+  // if (!userDetails) {
+  //   return <p>Loading...</p>;
+  // }
+  if(userDetails){
+    return <p>{userDetails.user.email}</p>
   }
-
+console.log(userDetails)
   const handleTallyDataToggle = () => setTallyDataOn(prev => !prev);
   const handleExportRequestsToggle = () => setExportRequestsOn(prev => !prev);
 
@@ -57,8 +60,10 @@ export default function Home() {
           {dropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="px-4 py-2 border-b border-gray-200">
-                <strong>{userDetails.user.displayName}</strong>
-                <p className="text-sm text-gray-500">{userDetails.user.email}</p>
+                {/* <strong>{userDetails.user.displayName}"Bhargavi"</strong> */}
+                <strong>"Bhargavi"</strong>
+
+                {/* <p className="text-sm text-gray-500">{userDetails.user.email}</p> */}
               </div>
               <button className="w-full text-left px-4 py-2 hover:bg-gray-100">Account</button>
               <button className="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100">Logout</button>

@@ -6,17 +6,17 @@ import {
   UserCredential,
 } from "firebase/auth";
 
-import { firebaseAuth } from "./config";
+import { auth } from "./config";
 
 export function onAuthStateChanged(callback: (authUser: User | null) => void) {
-  return _onAuthStateChanged(firebaseAuth, callback);
+  return _onAuthStateChanged(auth, callback);
 }
 
 export async function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
-console.log({firebaseAuth})
+console.log({auth})
   try {
-    const result = await signInWithPopup(firebaseAuth, provider);
+    const result = await signInWithPopup(auth, provider);
 
     if (!result || !result.user) {
       throw new Error("Google sign in failed");
@@ -30,7 +30,7 @@ console.log({firebaseAuth})
 
 export async function signOutWithGoogle() {
   try {
-    await firebaseAuth.signOut();
+    await auth.signOut();
   } catch (error) {
     console.error("Error signing out with Google", error);
   }

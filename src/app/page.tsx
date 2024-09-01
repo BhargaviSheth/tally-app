@@ -12,9 +12,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 //import { useRouter } from 'next/router';
-//import { auth, provider } from './lib/firebase/config';
-// import { auth } from './lib/firebase/config'; // Adjust the import path accordingly
-//import { GoogleAuthProvider, getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import { auth, provider } from './lib/firebase/config';
 import { getRedirectResult, onAuthStateChanged ,signInWithRedirect} from 'firebase/auth';
 
 
@@ -26,44 +24,37 @@ export default function MetajiConnector() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // useEffect(() => {
-  //   const checkRedirect = async () => {
-  //     try {
-  //       const result = await getRedirectResult(auth);
-  //       if (result && result.user) {
-  //         router.push('/main');
-  //       }
-  //     } catch (error) {
-  //       console.error("Error handling redirect result", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const checkRedirect = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result && result.user) {
+          router.push('/main');
+        }
+      } catch (error) {
+        console.error("Error handling redirect result", error);
+      }
+    };
 
-  //   checkRedirect();
+    checkRedirect();
 
-  //   // Optional: handle user state changes
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       // User is signed in, redirect to /main
-  //       // router.push('/main');
-  //     }
-  //   });
+    // Optional: handle user state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push('/main');
+      }
+    });
 
-  //   return () => unsubscribe();
-  // }, [router]);
+    return () => unsubscribe();
+  }, [router]);
 
-  const handleTestRedirect = () => {
-    router.push('/main');
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithRedirect(auth, provider);
+    } catch (error) {
+      console.error("Error during Google sign-in", error);
+    }
   };
-
-
-  // const handleGoogleLogin = async () => {
-  //   try {
-  //     await signInWithRedirect(auth, provider);
-  //     router.push('./main')
-  //   } catch (error) {
-  //     console.error("Error during Google sign-in", error);
-  //   }
-  // };
 
   //code of popup login
   const handleSignIn = async () => {
@@ -122,7 +113,7 @@ export default function MetajiConnector() {
           <Button
             variant={"outline"}
             className="max-w-[100%] rounded-[8px] gap-2 my-8 py-6"
-            onClick={handleTestRedirect}
+            onClick={handleGoogleLogin}
             disabled={isLoading}
           >
             {isLoading ? (

@@ -32,7 +32,17 @@ export const useUserStore = create(
         console.log("USER", data);
         set(
           produce((state) => {
-            state.userDetails = data;
+            if (data) {
+              state.userDetails = {
+                displayName: data.user.displayName,
+                email: data.user.email,
+                photoURL: data.user.photoURL,
+                uid: data.user.uid,
+              };
+            } else {
+              state.userDetails = null;
+            }
+            // state.userDetails = data ? { ...data.user } : null;
           })
         );
       },

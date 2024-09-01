@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import Image from 'next/image';
 import Notallydata from "../asset/Notallydata.png"
@@ -7,9 +8,13 @@ import wifi from "../asset/Wifi.png"
 import SVGIcon, { SVGList } from "../asset/icons";
 import Head from 'next/head';
 import  {Switch } from '../components/switch';
+import { useUserStore } from '../store/userDetails';
+
 
 
 const Home = () => {
+  const { userDetails } = useUserStore();
+  console.log(userDetails)
   return (
     <div className="flex flex-col h-screen bg-gray-50 rounded-lg shadow-md overflow-hidden">
     <Head>
